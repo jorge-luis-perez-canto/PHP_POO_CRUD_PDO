@@ -1,4 +1,4 @@
-<?php include('BDconect.php'); ?>
+<?php require_once 'BDconect.php'; ?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
