@@ -8,15 +8,6 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'dbparcial2');
 
-
-// Producción
-/*
-  define('DB_HOST','localhost');
-  define('DB_USER','jorgakxe_george');
-  define('DB_PASS','298@f+D^@xF~');
-  define('DB_NAME','jorgakxe_dbparcial2');
- */
-
 // Ahora, establecemos la conexión.
 try {
 // Ejecutamos las variables y aplicamos UTF8
