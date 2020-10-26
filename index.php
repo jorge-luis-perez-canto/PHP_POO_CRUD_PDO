@@ -1,1 +1,1 @@
-<?php header('Location: crud.php') ?>
+<?php header('Location: vista/crud.php') ?>

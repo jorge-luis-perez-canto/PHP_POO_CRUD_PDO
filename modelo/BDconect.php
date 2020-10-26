@@ -1,8 +1,8 @@
 <?php
 
-// DB CREDENCIALES DE USUARIO.
-// Desarrollo
+// CREDENCIALES DE USUARIO.
 
+// DB entorno de Desarrollo
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
@@ -16,4 +16,3 @@ try {
 } catch (PDOException $e) {
     exit("Error: " . $e->getMessage());
 }
-?>
