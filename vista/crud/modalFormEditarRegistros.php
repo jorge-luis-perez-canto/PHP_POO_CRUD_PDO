@@ -1,11 +1,7 @@
 <?php
 if (isset($_POST['editar'])) {
-    $id = $_POST['id'];
-    $sql = "SELECT * FROM tbl_datos WHERE id = :id";
-    $stmt = $connect->prepare($sql);
-    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-    $stmt->execute();
-    $obj = $stmt->fetchObject();
+    $id = (isset($_REQUEST['id'])) ? trim($_REQUEST['id']) : null;
+    $persona = Persona::buscarPorId($id);
 ?>
 <div class="modal fade" id="editarModal" tabindex="-1" role="dialog" aria-labelledby="editarModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -20,15 +16,15 @@ if (isset($_POST['editar'])) {
 
                 <div class="col-12 col-md-12"> 
                     <form role="form" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
-                        <input value="<?php echo $obj->id; ?>" name="id" type="hidden">
+                        <input value="<?php echo $persona->getId(); ?>" name="id" type="hidden">
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="nombres" class="col-form-label">Nombres</label>
-                                <input value="<?php echo $obj->nombres; ?>" name="nombres" type="text" class="form-control" placeholder="Nombres" autofocus>
+                                <input value="<?php echo $persona->getNombres(); ?>" name="nombres" type="text" class="form-control" placeholder="Nombres" autofocus>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="edad" class="col-form-label">Apellidos</label>
-                                <input value="<?php echo $obj->apellidos; ?>" name="apellidos" type="text" class="form-control" id="edad" placeholder="Apellidos">
+                                <input value="<?php echo $persona->getApellidos(); ?>" name="apellidos" type="text" class="form-control" id="edad" placeholder="Apellidos">
                             </div>
                         </div>
 

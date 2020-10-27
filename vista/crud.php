@@ -1,4 +1,7 @@
-<?php require_once '../modelo/BDconect.php'; ?>
+<?php 
+    define('CONTROLADOR', TRUE);
+    require_once '../modelo/Persona.php';
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -59,19 +62,26 @@
                 <?php
                 if (isset($_POST['eliminar'])) {
                     ////////////// Actualizar la tabla /////////
-                    $consulta = "DELETE FROM `tbl_datos` WHERE `id`=:id";
-                    $sql = $connect->prepare($consulta);
-                    $sql->bindParam(':id', $id, PDO::PARAM_INT);
-                    $id = trim($_POST['id']);
-
-                    $sql->execute();
-
-                    if ($sql->rowCount() > 0) {
-                        $count = $sql->rowCount();
-                        echo "<div class='content alert alert-primary'> Gracias: $count registro ha sido eliminado  </div>";
-                    } else {
-                        echo "<div class='content alert alert-danger'> No se pudo eliminar el registro  </div>";
-                        print_r($sql->errorInfo());
+                    
+                    $id = (isset($_REQUEST['id'])) ? trim($_REQUEST['id']) : null;
+                    
+                    if($id){
+                        $persona = Persona::buscarPorId($id);
+                        
+                        if ($persona) {
+                            $respuesta = $persona->eliminar();
+                            if ($respuesta->rowCount() > 0) {
+                                $count = $respuesta->rowCount();
+                                echo "<div class='content alert alert-primary'> Gracias: $count registro ha sido eliminado  </div>";
+                            } else {
+                                echo "<div class='content alert alert-danger'> No se pudo eliminar el registro  </div>";
+                                print_r($respuesta->errorInfo());
+                            }
+                        } else {
+                            echo "<div class='content alert alert-danger'> No se pudo eliminar el registro  </div>";
+                        }
+                        //header('Location: index.php');
+                        //header('Location: crud.php');
                     }
                 }// Cierra envio de guardado
                 ?>
@@ -79,53 +89,65 @@
                 <?php
                 if (isset($_POST['insertar'])) {
                     ///////////// Informacion enviada por el formulario /////////////
-                    $nombres = $_POST['nombres'];
-                    $apellidos = $_POST['apellidos'];
-                    $fecha = date('Y-m-d');
-                    ///////// Fin informacion enviada por el formulario /// 
-                    ////////////// Insertar a la tabla la informacion generada /////////
-                    $sql = "insert into tbl_datos(nombres,apellidos,fecha) values(:nombres,:apellidos,:fecha)";
-
-                    $sql = $connect->prepare($sql);
-                    $sql->bindParam(':nombres', $nombres, PDO::PARAM_STR, 25);
-                    $sql->bindParam(':apellidos', $apellidos, PDO::PARAM_STR, 25);
-                    $sql->bindParam(':fecha', $fecha, PDO::PARAM_STR);
-                    $sql->execute();
-
-                    $lastInsertId = $connect->lastInsertId();
-                    if ($lastInsertId > 0) {
-                        echo "<div class='content alert alert-primary' > Gracias $nombres . Tu registro ha sido guardado </div>";
-                    } else {
-                        echo "<div class='content alert alert-danger'> No se pueden agregar datos, comuníquese con el administrador  </div>";
-                        print_r($sql->errorInfo());
+                    
+                    $persona = new Persona();
+                    
+                    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                        $nombres = (isset($_POST['nombres'])) ? trim($_POST['nombres']) : null;
+                        $apellidos = (isset($_POST['apellidos'])) ? trim($_POST['apellidos']) : null;
+                        //$fecha = (isset($_POST['fecha'])) ? trim($_POST['fecha']) : null;
+                        $fecha = date('Y-m-d');
+                        $persona->setNombres($nombres);
+                        $persona->setApellidos($apellidos);
+                        $persona->setFecha($fecha);
+                        $respuesta = $persona->guardar();
+                        
+                        $lastInsertId = $persona->getId();
+                        if ($lastInsertId > 0) {
+                            echo "<div class='content alert alert-primary' > Gracias $nombres . Tu registro ha sido guardado </div>";
+                        } else {
+                            echo "<div class='content alert alert-danger'> No se pueden agregar datos, comuníquese con el administrador  </div>";
+                            print_r($respuesta->errorInfo());
+                        }
+                        //header('Location: index.php');
+                    }else{
+                        //include 'vistas/guardar_personaje.php';
                     }
+
                 }// Cierra envio de guardado
                 ?>
 
                 <?php
                 if (isset($_POST['actualizar'])) {
                     ///////////// Informacion enviada por el formulario /////////////
-                    $id = trim($_POST['id']);
-                    $nombres = trim($_POST['nombres']);
-                    $apellidos = trim($_POST['apellidos']);
-                    $fecha = date('Y-m-d');
-                    ///////// Fin informacion enviada por el formulario /// 
-                    ////////////// Actualizar la tabla /////////
-                    $consulta = "UPDATE tbl_datos SET `nombres`= :nombres, `apellidos` = :apellidos, `fecha` = :fecha WHERE `id` = :id";
-                    $sql = $connect->prepare($consulta);
-                    $sql->bindParam(':nombres', $nombres, PDO::PARAM_STR, 25);
-                    $sql->bindParam(':apellidos', $apellidos, PDO::PARAM_STR, 25);
-                    $sql->bindParam(':fecha', $fecha, PDO::PARAM_STR);
-                    $sql->bindParam(':id', $id, PDO::PARAM_INT);
-                    $sql->execute();
+                    
+                    $id = (isset($_REQUEST['id'])) ? trim($_REQUEST['id']) : null;
 
-                    if ($sql->rowCount() > 0) {
-                        $count = $sql->rowCount();
-                        echo "<div class='content alert alert-primary'> Gracias: $count registro ha sido actualizado  </div>";
-                    } else {
-                        echo "<div class='content alert alert-danger'> No se pudo actulizar el registro  </div>";
-                        print_r($sql->errorInfo());
+                    if($id){
+                        $persona = Persona::buscarPorId($id);
+                        
+                        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                            $nombres = (isset($_POST['nombres'])) ? trim($_POST['nombres']) : null;
+                            $apellidos = (isset($_POST['apellidos'])) ? trim($_POST['apellidos']) : null;
+                            //$fecha = (isset($_POST['fecha'])) ? trim($_POST['fecha']) : null;
+                            $fecha = date('Y-m-d');
+                            $persona->setNombres($nombres);
+                            $persona->setApellidos($apellidos);
+                            $persona->setFecha($fecha);
+                            $respuesta = $persona->guardar();
+                            
+                            if ($respuesta->rowCount() > 0) {
+                                $count = $respuesta->rowCount();
+                                echo "<div class='content alert alert-primary'> Se ha actualizado $count registro. </div>";
+                            } else {
+                                echo "<div class='content alert alert-danger'> No se pudo actulizar el registro  </div>";
+                                print_r($respuesta->errorInfo());
+                            }                            
+                        }
                     }
+
+
+                            
                 }// Cierra envio de guardado
                 ?>
 
@@ -145,6 +167,7 @@
                 
                 <!-- Tabla principal -->
                 <?php 
+                    $persona = Persona::recuperarTodos();
                     include_once './crud/tablaPrincipal.php';
                 ?>                
 
