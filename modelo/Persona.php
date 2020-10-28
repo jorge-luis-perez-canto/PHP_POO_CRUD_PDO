@@ -1,7 +1,8 @@
 <?php
 
-if (!defined('CONTROLADOR'))
-    exit;
+/*
+ * Copyright (C) 2020 Jorge Luis Pérez Canto
+ */
 
 require_once 'Conexion.php';
 

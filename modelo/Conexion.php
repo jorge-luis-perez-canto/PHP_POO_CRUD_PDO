@@ -1,15 +1,19 @@
 <?php
 
-if (!defined('CONTROLADOR'))
-    exit;
+/*
+ * Copyright (C) 2020 Jorge Luis Pérez Canto
+ */
 
 class Conexion extends PDO {
 
     private $prefijo_dsn = 'mysql';
     private $db_host = 'localhost';
     private $db_name = 'dbparcial2';
+    //private $db_name = 'jorgakxe_dbparcial2';
     private $db_user = 'root';
+    //private $db_user = 'jorgakxe_george';
     private $db_pass = '';
+    //private $db_pass = '298@f+D^@xF~';
     private $collation = 'utf8';
     private $dsn;
 

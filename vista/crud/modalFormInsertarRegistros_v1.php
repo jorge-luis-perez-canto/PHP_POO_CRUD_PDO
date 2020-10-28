@@ -35,11 +35,13 @@
                         </div>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
 <script>
+  //$('#insertarModal').modal('toggle');
   $('#insertarModal').modal('show');
-</script>
+</script>                            
 <?php } ?>

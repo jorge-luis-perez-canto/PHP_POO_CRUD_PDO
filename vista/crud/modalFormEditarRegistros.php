@@ -15,7 +15,8 @@ if (isset($_POST['editar'])) {
             <div class="modal-body">
 
                 <div class="col-12 col-md-12"> 
-                    <form role="form" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+                    <form role="form" id="formularioEditar" method="POST" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+                        <input value="editar" name="accion" type="hidden">
                         <input value="<?php echo $persona->getId(); ?>" name="id" type="hidden">
                         <div class="form-row">
                             <div class="form-group col-md-6">
@@ -30,7 +31,7 @@ if (isset($_POST['editar'])) {
 
                         <div class="modal-footer">
                             <div class="form-group">
-                                <button name="actualizar" type="submit" class="btn btn-primary  btn-block">Actualizar Registro</button>
+                                <button name="actualizar" type="submit" class="btn btn-primary btn-block">Actualizar Registro</button>
                             </div>                        
                         </div>
                     </form>
@@ -41,7 +42,6 @@ if (isset($_POST['editar'])) {
     </div>
 </div>
 <script>
-  //$('#editarModal').modal('toggle');
   $('#editarModal').modal('show');
 </script>
 <?php } ?>
