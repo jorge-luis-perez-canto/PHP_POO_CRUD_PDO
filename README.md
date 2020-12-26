@@ -1,9 +1,13 @@
 Universidad de San Carlos de Guatemala – USAC
-Escuela de Formación de Profesores de Enseñanza Media – EFPEM 
-Licenciatura en la Enseñanza de la Computación e Informática
-**Jorge Luis Pérez Canto**
 
-###EVALUACIÓN PARCIAL
+Escuela de Formación de Profesores de Enseñanza Media – EFPEM 
+
+Licenciatura en la Enseñanza de la Computación e Informática
+
+Jorge Luis Pérez Canto
+
+
+### EVALUACIÓN PARCIAL PHP
 
 **Instrucciones:**
 Crear un sitio web que permita realizar los procesos de CRUD para una tabla de una base de datos relacional, para ello tome en cuenta lo siguiente:
@@ -40,6 +44,7 @@ b.	Explique el código fuente empleado en uno de los procesos CRUD (conexión, a
 
 **Importante:**
 •	Utilizar CSS o algún Framework CSS para hacer que el sitio web sea responsivo y cuente con un diseño amigable. 
+
 •	Agregar icono a los botones (nuevo, modificar y eliminar) y utilice imágenes relacionadas con la acción a realizar.
 
 ### Demostración:
@@ -47,6 +52,8 @@ b.	Explique el código fuente empleado en uno de los procesos CRUD (conexión, a
 
 - https://jorgeperez.website/parcial2_dep_201024865/vista/crud.php
 
+### Solución:
+El código fuente que encontrarás en este repositorio.
 
 Dudas, comentarios, sugerencias: profe.jorge.perez@gmail.com
 
